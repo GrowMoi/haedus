@@ -2,7 +2,7 @@ unless User.exists?(role: "admin")
   # create admin if there's no admin
   email = "admin@example.com"
   password = "12345678"
-  User.create!(name: "admin", email: email, password: password, role: "admin")
+  User.create!(name: "admin", email: email, password: password, role: "admin", username: 'admin')
   puts "Se ha creado el administrador #{email} con contraseña #{password}"
 end
 
