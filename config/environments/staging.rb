@@ -88,8 +88,8 @@ Rails.application.configure do
 
   config.middleware.insert_before 0, "Rack::Cors" do
     allow do
-      origins "http://moi-frontend.herokuapp.com",
-              "https://moi-frontend.herokuapp.com"
+      origins "http://haedus-frontend.herokuapp.com",
+              "https://haedus-frontend.herokuapp.com"
 
       resource "/api/*",
                headers: :any,
