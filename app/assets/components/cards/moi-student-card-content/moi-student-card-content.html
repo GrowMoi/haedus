@@ -1,0 +1,86 @@
+<dom-module id="moi-student-card-content">
+    <link rel="stylesheet" href="moi-student-card-content.css" />
+    <template>
+
+      <paper-toast id="toast-message" duration="5000" text="{{ toastMessage }}"></paper-toast>
+
+      <div class="list-group list-group-flush">
+        <template is="dom-repeat" items="{{ students }}">
+          <template is="dom-if" if="[[ item.status ]]" restamp>
+            <moi-selectable-row name="[[ item.name ]]"
+              username="[[ item.username ]]"
+              student-id$="[[ item.id ]]"
+              img-selector="[[ rowImgCheck ]]"
+              img-avatar-active="[[ rowImgActive ]]"
+              img-avatar-inactive="[[ rowImgInactive ]]"
+              on-row-selected="onRowSelectedHandler">
+              <div class="options">
+                  <moi-student-report-button
+                    student-id$="[[ item.id ]]"
+                    title$="[[ t('views.tutor.dashboard.card_students.show_report') ]]"
+                    glyphicon="glyphicon-stats"
+                    text=""
+                    class="moi-student-report-button">
+                  </moi-student-report-button>
+                  <paper-button on-tap="openDialogConfirm" class="btn-remove" title$="[[ t('views.tutor.dashboard.card_students.remove_user') ]]">
+                    <span class="glyphicon glyphicon-remove"></span>
+                  </paper-button>
+              </div>
+            </moi-selectable-row>
+          </template>
+
+          <template is="dom-if" if="[[ !item.status ]]" restamp>
+            <moi-selectable-row name="[[ item.name ]]"
+              username="[[ item.username ]]"
+              student-id$="[[ item.id ]]"
+              img-avatar-active="[[ rowImgInactive ]]"
+              img-avatar-inactive="[[ rowImgInactive ]]"
+              disable-selection>
+              <div class="status">
+                <paper-button on-tap="cancelRequest">[[ t('views.tutor.dashboard.card_students.cancel_request') ]]</paper-button>
+              </div>
+            </moi-selectable-row>
+
+          </template>
+
+        </template>
+        <template is="dom-if" if="{{ loading }}" restamp>
+          <div>{{ t('views.tutor.dashboard.card_students.loading_students') }}</div>
+        </template>
+      </div>
+
+      <moi-actions-row>
+        <moi-download-button href="/tutor/dashboard/download_tutor_analytics.xls"
+          id="btnSelectiveDownload"
+          text="[[ t('views.tutor.dashboard.card_students.export_selected_xls') ]]"
+          title$="[[ t('views.tutor.dashboard.card_students.export_selected_xls_title') ]]"
+          filename="[[ downloadBtnFilename ]]"
+          loading-text="[[ t('views.tutor.dashboard.card_students.loading_report') ]]"
+          mime-type="application/xls"
+          ids="{{ studentsSelected }}">
+        </moi-download-button>
+
+        <moi-download-button href="/tutor/dashboard/download_tutor_analytics.xls"
+          text="[[ t('views.tutor.dashboard.card_students.export_xls') ]]"
+          title$="[[ t('views.tutor.dashboard.card_students.export_xls_title') ]]"
+          filename="[[ downloadBtnFilename ]]"
+          loading-text="[[ t('views.tutor.dashboard.card_students.loading_report') ]]"
+          mime-type="application/xls">
+        </moi-download-button>
+      </moi-actions-row>
+
+      <moi-dialog title="[[ t('views.tutor.dashboard.card_students.remove_user') ]]" width="500" id="dialog-confirm" theme="red">
+        <p>[[ t('views.tutor.dashboard.card_students.dialog.confirm.message', username) ]]</p>
+        <div class="options">
+          <paper-button on-tap="closeDialog" class="btn-cancel">
+            <span>[[ t('views.tutor.dashboard.card_students.dialog.confirm.buttons.cancel') ]]</span>
+          </paper-button>
+          <paper-button on-tap="removeUser" class="btn-remove">
+            <span>[[ t('views.tutor.dashboard.card_students.dialog.confirm.buttons.remove') ]]</span>
+          </paper-button>
+        </div>
+      </moi-dialog>
+
+    </template>
+    <script src="moi-student-card-content.js"></script>
+  </dom-module>

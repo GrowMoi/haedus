@@ -1,0 +1,28 @@
+@import ../../styles/mixins
+@import ../../styles/variables
+
+\:host
+  height: 100%
+  position: relative
+
+  .disabled
+    pointer-events: none
+    opacity: 0.6
+
+  .btn-action
+    padding: 0.5rem
+    border-radius: 0.3rem
+    text-transform: uppercase
+    background-color: transparent
+    color: $base-color-yellow
+    border: 1px solid $base-color-yellow
+    margin: 0.5rem
+
+  .row-select
+    margin-bottom: 0.2rem
+
+  .actions
+    height: 4rem
+    position: relative
+
+  +var(moi-choosen-width, 100%)

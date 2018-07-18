@@ -1,0 +1,60 @@
+
+$base-color-light-gray: #EEEEEE
+
+\:host
+  display: flex
+  position: relative
+
+  &.disabled
+    .row-container
+      background-color: $base-color-light-gray
+      opacity: 0.7
+
+.row-container
+  display: flex
+  cursor: default
+  padding: 0.5rem 0
+  padding-right: 3rem
+  flex-basis: 100%
+  border-bottom: 1px solid $base-color-light-gray
+
+  .user-info
+    width: var(--moi-selectable-row-info-width)
+
+  &:hover
+    background-color: $base-color-light-gray
+    .row-container
+      .options
+        button
+          opacity: 1
+
+
+  .options
+    position: absolute
+    right: 1rem
+    top: 0.7rem
+    opacity: 0.6
+    button
+      cursor: pointer
+      font-size: 2rem
+      border-radius: 0.3rem
+      padding-top: 0.3rem
+      height: 3rem
+
+
+.avatar
+  padding: 0.2rem
+  img
+    width: 4rem
+    height: 4rem
+
+.selector
+  display: flex
+  align-items: center
+  justify-content: center
+  img
+    width: 2rem
+
+
+
+

@@ -1,8 +1,8 @@
 module Tutor
   class AnalysisController < TutorController::Base
-
+    include ApplicationHelper
     expose(:client_data) {
-      User.where(id: params[:id], role: :cliente)
+      User.where(id: params[:client_id], role: :cliente)
     }
     expose(:content_reading_times) {
       client_data.first.content_reading_times
@@ -30,9 +30,46 @@ module Tutor
       end
     end
 
-    def show
-      @client = client_data.first
-      @statistics = @client.generate_statistics
+    def get_user_analysis
+
+      result = grouped_reading_time_content_ids.map do |content_ids|
+        content_data_array = []
+        content_ids.each do |id|
+          time = reading_time_for_content(id)
+          content_data_array.push({
+            content_id: id,
+            title: show_content_title(id),
+            time: time,
+            time_humanized: humanize_ms(time)
+          })
+        end
+        content_data_array
+      end
+
+      client = client_data.first
+
+      render json: {
+        data: {
+          grouped_reading_time: result || [],
+          statistics: client.generate_statistics(
+            [
+              "total_neurons_learnt",
+              "total_content_readings",
+              "total_right_questions",
+              "total_notes",
+              "images_opened_in_count",
+              "user_sign_in_count",
+              "used_time",
+              "content_readings_by_branch"
+            ]
+          )
+        },
+        meta: {
+          client: {
+            username: client.username
+          }
+        }
+      }
     end
 
     private

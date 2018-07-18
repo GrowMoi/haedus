@@ -1,0 +1,32 @@
+@import ../../styles/mixins
+@import ../../styles/variables
+
+\:host
+  height: 100%
+  position: relative
+
+  .form-group
+    margin-bottom: 5px
+
+  #btnsend
+    &.disabled
+      pointer-events: none
+      opacity: 0.6
+
+    &:hover
+      background-color: $base-color-pink
+      color: $white
+
+  .form-control
+    border: 1px solid $base-color-pink
+
+  .action-send
+    padding: 0.5rem
+    border-radius: 0.3rem
+    text-transform: uppercase
+    background-color: transparent
+    color: $base-color-pink
+    border: 1px solid $base-color-pink
+    margin: 0.5rem
+
+  +var(moi-select-border-color, $base-color-pink)

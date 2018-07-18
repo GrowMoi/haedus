@@ -6,6 +6,7 @@
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  level_quiz_id :integer          not null
+#  created_by    :integer
 #
 
 class Quiz < ActiveRecord::Base
@@ -14,6 +15,9 @@ class Quiz < ActiveRecord::Base
     belongs_to :level_quiz
     has_many :players,
             dependent: :destroy
+    belongs_to :created_by,
+              class_name: "User",
+              foreign_key: "created_by"
   end
 
   begin :validations

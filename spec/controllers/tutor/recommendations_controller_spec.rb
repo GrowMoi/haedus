@@ -46,6 +46,12 @@ RSpec.describe Tutor::RecommendationsController, type: :controller do
            approved: false
   }
 
+  let!(:neuron) {
+    create :neuron,
+    is_public: true,
+    contents: [content1, content2, content3, content4]
+  }
+
   let!(:achievement1) {
     create :tutor_achievement,
            tutor: current_user,
@@ -93,7 +99,7 @@ RSpec.describe Tutor::RecommendationsController, type: :controller do
   }
 
   let!(:tutor_achievements) {
-    TutorAchievement.where(tutor: current_user)
+    TutorAchievement.where(tutor: current_user).order(created_at: :desc)
   }
 
   let!(:tutor_recommendations) {
@@ -160,7 +166,8 @@ RSpec.describe Tutor::RecommendationsController, type: :controller do
       request.env["HTTP_REFERER"] = root_url
       post :create, :tutor_recommendation => {
         :content_tutor_recommendations => [content1.id, content2.id],
-        :tutor_achievement => achievement1.id
+        :tutor_achievement => achievement1.id,
+        :students => [client1.id]
       }
     }
 
@@ -218,7 +225,7 @@ RSpec.describe Tutor::RecommendationsController, type: :controller do
 
     it {
       expect(recommendations_for_client1.first.status).to eq("reached")
-      expect(recommendations_for_client2.first.status).to eq("in_progress")
+      expect(recommendations_for_client2.count).to eq(0)
     }
   end
 
@@ -227,7 +234,8 @@ RSpec.describe Tutor::RecommendationsController, type: :controller do
       request.env["HTTP_REFERER"] = root_url
       post :create, :tutor_recommendation => {
         :content_tutor_recommendations => [content4.id],
-        :tutor_achievement => achievement1.id
+        :tutor_achievement => achievement1.id,
+        :students => [client1.id]
       }
     }
 
@@ -240,7 +248,7 @@ RSpec.describe Tutor::RecommendationsController, type: :controller do
 
     it {
       expect(recommendations_for_client1.first.status).to eq("in_progress")
-      expect(recommendations_for_client2.first.status).to eq("reached")
+      expect(recommendations_for_client2.count).to eq(0)
     }
   end
 

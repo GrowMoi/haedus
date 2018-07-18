@@ -1,0 +1,9 @@
+$("<%= j render(partial: 'tutor/dashboard/partials/client', collection: clients) %>")
+  .appendTo($("#clients-list"));
+// Update pagination link
+<% if clients.last_page? %>
+  $('.pagination').html('');
+<% else %>
+  $('.pagination')
+    .html("<%= j link_to('next', params.merge(page: params[:page].to_i + 1), rel: 'next') %>");
+<% end %>

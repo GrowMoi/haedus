@@ -41,7 +41,14 @@ module Api
             ]
           }
         },
-        "meta": { "depth": 2 }
+        "meta": {
+          "depth": 2,
+          "depth": 2,
+          "current_learnt_contents": 2,
+          "total_approved_contents": 20,
+          "perform_final_test": false,
+          "total_final_test": 0
+        }
       }
     }
     param :username, String, required: true
@@ -49,6 +56,7 @@ module Api
 
     def show
       if user_tree
+        assign_achievement
         respond_with tree: { root: user_tree.root },
                      meta: { depth: user_tree.depth,
                             current_learnt_contents: user.content_learnings.count,
@@ -56,6 +64,19 @@ module Api
       else
         render nothing: true,
                 status: 404
+      end
+    end
+
+    private
+
+    def assign_achievement
+      if user_tree.depth == 9
+        achievement = AdminAchievement.find_by_number(10)
+        my_achievements = user.user_admin_achievements.map(&:admin_achievement_id)
+        has_achievements = my_achievements.include? achievement.id
+        unless has_achievements
+          UserAdminAchievement.create!(user_id: user.id, admin_achievement_id: achievement.id)
+        end
       end
     end
   end

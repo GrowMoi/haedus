@@ -68,7 +68,7 @@ module AnalyticService
       root_children_data
     end
 
-    def format_donut_chart_data
+    def contents_learnt_by_branch
       @items_content = group_by_neuron
       format_data
     end

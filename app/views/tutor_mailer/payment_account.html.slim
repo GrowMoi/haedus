@@ -1,0 +1,88 @@
+html
+  head
+    meta[content="text/html; charset = UTF-8" http-equiv="Content-Type"]
+    style[type="text/css" media="screen"]
+      | body { font-family: Helvetica,Verdana,Arial; }
+      | .text-highlight { color: #00bff4; font-size: 20px;}
+      | .margin-sides { margin: 25px; }
+      | .img-section { margin: 10px 0; }
+      | .img-section img { width: 100%; height: auto; }
+      | .password-section { text-align: center; margin-bottom: 35px;}
+      | .text { margin-bottom: 30px; font-size: 20px;}
+      | .password {
+      |   padding: 20px;
+      |   background-color: #00bff4;
+      |   max-width: 100px;
+      |   color: white;
+      |   margin: 0 auto;
+      |   border-radius: 5px;
+      |  }
+      | .bold { font-weight: bold; }
+      | .footer-section {
+      |   text-align: center;
+      | }
+      | .footer-section { margin: 0px 0px 300px 0px; padding-top: 40px; color: #b9b9ba;}
+      | .footer-image { width: 100vw;
+      |  height: 100px;
+      |  margin-top: 0px;
+      |  margin-left: 0px;
+      |  display: inline-block;
+      | }
+      | .footer-image img { width: 100%; }
+      | .logo { padding-top: 10%; width: 100%;}
+      | .logo img {width: 80px; height: 40px; }
+      | .footer-content { width: 100vw;
+      |  height: 100px;
+      |  margin-top: 0px;
+      |  margin-left: 0px;
+      |  display: inline-block;
+      | }
+      | .networks { width: 100%; }
+      | .container-elements { max-height:0;max-width:0;overflow: visible; }
+  body
+    .img-section
+      = image_tag attachments['moi_title.png'].url
+    .header-section.margin-sides
+      p.text-highlight
+        | Estimadx #{@tutor_name},
+      p
+        | Desde este momento, tienes el poder para impulsar dinámicamente el desarrollo intelectual de tu(s) niñx(s).
+    .img-section
+      = image_tag attachments['moicartaimg.png'].url
+    .password-section
+      .text
+        | Tu clave de tutor
+      .password
+        | #{@tutor_password}
+    .message-section.margin-sides
+      p
+        | La plataforma de&nbsp;
+        = link_to "Análisis, Recomendaciones y Recompensas Moi", @url_dashboard, target: "_blank"
+        | , te permitirá seguir todos los pasos que da tu pequeñx genix en su proceso independiente de aprendizaje.
+        | Estos datos te permitirán conocer exactamente que conceptos y contenidos está leyendo, cuanto tiempo le toma, cuáles son sus intereses principales y sus áreas de menor interés.
+      p
+        | Podrás motivar sus aprendizajes enviándole (s) mensajes, recomendaciones de contenidos, estableciendo recompensas y pruebas especiales.
+        | Además, podrás recibir notificaciones de progreso periodicas o instantaneas segun tus preferencias.
+        | En cualquier momento, podrás generar un reporte individual o grupal para evidenciar los aprendizajes de tu niñx.
+      p
+        | Para empezar, haz clic&nbsp;
+        = link_to "aquí", @url_sign_in, target: "_blank"
+        | , ingresa tu email y contraseña y envía una solicitud al estudiante al que quieres motivar.
+        br
+      p
+        | Si tienes preguntas, escribenos a&nbsp;
+        span.bold
+         | learning@growmoi.com
+    .footer-section
+      .container-elements
+        .footer-image
+          = image_tag attachments['footer_email_shared.png'].url
+      .container-elements
+        .footer-content
+          .logo
+            = link_to image_tag(attachments['moi_logo.png'].url), @url_web_site, target: "_blank"
+          .networks
+            = link_to image_tag(attachments['fb_icon.png'].url), @url_facebook, target: "_blank"
+            = link_to image_tag(attachments['tw_icon.png'].url), @url_twitter, target: "_blank"
+            = link_to image_tag(attachments['yt_icon.png'].url), @url_youtube, target: "_blank"
+          span Moi Social Learning from Guayaquil, Ecuador

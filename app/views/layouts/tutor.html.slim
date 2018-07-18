@@ -7,6 +7,24 @@ html
     = javascript_include_tag "tutor", "data-turbolinks-track" => true
     = html_import_tag "tutor_components", "data-turbolinks-track" => true
     = csrf_meta_tags
+    javascript:
+      I18n.defaultLocale = "#{I18n.default_locale}";
+      I18n.locale = "#{I18n.locale}";
+      ENV = {};
+      ENV.pusherAppKey = "#{Rails.application.secrets.pusher_app_key}";
+      assets = {
+        'bell.svg': "#{asset_path('bell.svg')}",
+        'client_avatar.png': "#{asset_path('client_avatar.png')}",
+        'client_avatar_green.png': "#{asset_path('client_avatar_green.png')}",
+        'client_avatar_inactive.png': "#{asset_path('client_avatar_inactive.png')}",
+        'check_green.png': "#{asset_path('check_green.png')}",
+        'check_blue.png': "#{asset_path('check_blue.png')}",
+        'icon_search.png': "#{asset_path('icon_search.png')}",
+        'user_image_status.png': "#{asset_path('user_image_status.png')}",
+        'client_tree_landscape.png': "#{asset_path('client_tree_landscape.png')}",
+        'client_tree_frame.png': "#{asset_path('client_tree_frame.png')}",
+        'bell.svg': "#{asset_path('bell.svg')}"
+      };
 
   body
     = render "tutor/shared/main_navbar"

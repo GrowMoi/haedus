@@ -1,0 +1,57 @@
+html
+  head
+    meta[content="text/html; charset = UTF-8" http-equiv="Content-Type"]
+    style[type="text/css" media="screen"]
+      | body { font-family: Helvetica,Verdana,Arial; color: #979797; font-size: 18px;}
+      | .text-highlight { color: #00bff4; font-size: 40px;}
+      | .margin-sides { margin: 25px; }
+      | .img-section { margin: 10px 0; }
+      | .img-section img { width: 100%; }
+      | .footer-section {
+      |   background-image: url(attachments/footer_email_shared.png);
+      |   height: 150px;
+      |   background-repeat: no-repeat;
+      |   background-size: 100% 100%;
+      |   text-align: center;
+      |   height: 100px;
+      | }
+      | .message-section { text-align: center; }
+      | .footer-section p { margin: 0px 0px 5px 0px; padding-top: 40px;}
+      | .screenshot { text-align: center; }
+      | .screenshot img {width: 800px; height: 600px; }
+      | .left-btn { border-radius: 5px; border: 2px solid #4fb6dc; padding: 5px; }
+      | .left-btn a { color: #4fb6dc; text-decoration: none; }
+      | .right-btn a { color: #ffa644; text-decoration: none; }
+      | .right-btn { border-radius: 5px; border: 2px solid #ffa644; padding: 5px; }
+  body
+    .img-section
+      = image_tag attachments['header_email_shared.png'].url
+    .header-section.margin-sides
+      p.text-highlight
+        | Hola,
+        br
+        | #{@user_name} pensó que te gustaría conocer esto:
+    .screenshot
+      = link_to image_tag(@image_url), @public_url, target: "_blank"
+    .message-section.margin-sides
+      p
+        | Esta pantalla es parte de la experiencia Moi de&nbsp;
+        = link_to (@user_name), @profile_url, target: "_blank"
+        | . Para verlo en detalle, haz clic&nbsp;
+        = link_to "Aqui", @public_url, target: "_blank"
+      p
+        | Para empezar, a jugar haz clic&nbsp;
+        span.left-btn
+          = link_to "Jugar!", @url_sign_in, target: "_blank"
+        | o seguir su proceso&nbsp;
+        span.right-btn
+          = link_to "Tutores", @url_dashboard, target: "_blank"
+        br
+    .footer-section.margin-sides
+      p
+        | Para concer más visita&nbsp;
+        = link_to "www.growmoi.com", @url_web_site, target: "_blank"
+      .networks
+        = link_to image_tag(attachments['fb_icon.png'].url), @url_facebook, target: "_blank"
+        = link_to image_tag(attachments['tw_icon.png'].url), @url_twitter, target: "_blank"
+        = link_to image_tag(attachments['yt_icon.png'].url), @url_youtube, target: "_blank"

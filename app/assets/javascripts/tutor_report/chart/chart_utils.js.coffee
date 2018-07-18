@@ -3,7 +3,7 @@ class window.ChartUtils
     data.map (d) ->
       {
         id: d.user_id
-        label: d.name
+        label: d.username
         value: d.contents_learnt
       }
 
@@ -40,7 +40,7 @@ class window.ChartUtils
     i = 0
     while i < data.length
       row = []
-      row.push data[i].name
+      row.push data[i].username
       row.push data[i].value
       row.push data[i].user_id
       row.push data[i].value_humanized

@@ -15,6 +15,8 @@ class AdminAchievement < ActiveRecord::Base
         successful_continous_tests(self, user)
       when 9
         tests_given(self, user)
+      when 10
+        user_reach_level(self, user)
       else
         puts "no achievement found"
       end
@@ -77,6 +79,13 @@ class AdminAchievement < ActiveRecord::Base
       else
         false
       end
+    end
+
+    ##
+    # user reach a specific level
+    def user_reach_level(achievement, user)
+      user_tree = TreeService::UserTreeFetcher.new(user, nil)
+      user_tree.depth == achievement.settings['level']
     end
   end
 end

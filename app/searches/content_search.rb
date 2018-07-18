@@ -1,5 +1,5 @@
 class ContentSearch < Searchlight::Search
-  search_on Content.where(approved: true)
+  search_on Neuron.approved_public_contents
   searches :q
 
   def search_q

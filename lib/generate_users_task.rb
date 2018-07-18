@@ -1,5 +1,5 @@
 require 'csv'
-require 'net/http'
+require "utils/remote_fetcher"
 
 class GenerateUsersTask
   def initialize(list_uri)
@@ -45,20 +45,7 @@ class GenerateUsersTask
     fetch(@list_uri).body.split("\n")
   end
 
-  def fetch(uri_str, limit = 10)
-    raise ArgumentError, 'too many HTTP redirects' if limit == 0
-
-    response = Net::HTTP.get_response(URI(uri_str))
-
-    case response
-    when Net::HTTPSuccess then
-      response
-    when Net::HTTPRedirection then
-      location = response['location']
-      warn "redirected to #{location}"
-      fetch(location, limit - 1)
-    else
-      response.value
-    end
+  def fetch(uri_str)
+    Utils::RemoteFetcher.fetch(uri_str)
   end
 end

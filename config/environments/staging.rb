@@ -96,5 +96,14 @@ Rails.application.configure do
                methods: [:get, :post, :delete, :put, :patch, :options, :head],
                expose:  ["access-token", "expiry", "token-type", "uid", "client"]
     end
+
+    allow do
+      origins "http://moi-frontend.herokuapp.com",
+              "https://moi-frontend.herokuapp.com",
+              "http://moi-staging.herokuapp.com",
+              "https://moi-staging.herokuapp.com"
+
+      resource '/assets/*'
+    end
   end
 end

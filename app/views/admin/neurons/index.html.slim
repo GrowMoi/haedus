@@ -6,13 +6,22 @@ hr
 
 .pull-right.btn-group
   - if can? :sort, Neuron
-    = link_to t("views.neurons.sort_tree"),
-              sort_admin_neurons_path,
-              class: "btn btn-sm btn-default"
+    = link_to sort_admin_neurons_path,
+              class: "btn btn-sm btn-default" do
+      span.glyphicon.glyphicon-sort
+      =< t("views.neurons.sort_tree")
 
   - if can? :create, Neuron
-    = link_to t("views.neurons.new"),
-              new_admin_neuron_path,
-              class: "btn btn-sm btn-default"
+    = link_to new_admin_neuron_path,
+              class: "btn btn-sm btn-default" do
+      span.glyphicon.glyphicon-plus
+      =< t("views.neurons.new")
+
+.pull-right style="margin-right: 1em;"
+  - if can? :import, Content
+    = link_to admin_content_importings_path,
+              class: "btn btn-sm btn-default" do
+      span.glyphicon.glyphicon-import
+      =< t("views.neurons.import_contents")
 
 .clearfix

@@ -1,0 +1,88 @@
+<dom-module id="moi-dashboard-view">
+  <link rel="stylesheet" href="moi-dashboard-view.css" />
+  <template>
+
+    <moi-badge counter="{{notificationCounter}}"></moi-badge>
+
+    <div class="container-tutor-internal container-dashboard">
+      <div class="row">
+        <div class="col-xs-6 col-md-4">
+          <div class="panel panel-height-large">
+            <div class="dashboard-card dashboard-users-card moi-card card-blue">
+              <div class="moi-card-header">
+                <div class="moi-card-title">[[ t("views.tutor.dashboard.card_users.title") ]]</div>
+              </div>
+              <div class="moi-card-content">
+
+                <moi-user-card-content options="{{userCardOptions}}">
+                </moi-user-card-content>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-6 col-md-4">
+          <div class="panel panel-height-medium">
+            <div class="dashboard-card dashboard-users-card moi-card card-green">
+              <div class="moi-card-header">
+                <div class="moi-card-title">[[ t("views.tutor.dashboard.card_students.title") ]]</div>
+              </div>
+              <div class="moi-card-content">
+
+                <moi-student-card-content options="{{studentCardOptions}}">
+                </moi-student-card-content>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-6 col-md-4">
+          <div class="panel panel-height-medium">
+            <div class="dashboard-card dashboard-achievements-card moi-card card-yellow">
+              <div class="moi-card-header">
+                <div class="moi-card-title">[[ t("views.tutor.dashboard.card_recommendations.title") ]]</div>
+              </div>
+              <div class="moi-card-content">
+
+                <moi-card-content-wrapper auth-token="{{ authToken }}" options="{{contentWrapperCardOptions}}">
+                </moi-card-content-wrapper>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-6 col-md-4">
+          <div class="panel panel-height-medium">
+            <div class="dashboard-card dashboard-send-notifications-card moi-card card-pink">
+              <div class="moi-card-header">
+                <div class="moi-card-title">[[ t("views.tutor.dashboard.card_send_notifications.title") ]]</div>
+              </div>
+              <div class="moi-card-content">
+
+                <moi-send-notifications-card-content auth-token="{{ authToken }}" title="" options="{{sendNotificationCardOptions}}">
+                </moi-send-notifications-card-content>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-6 col-md-4">
+          <div class="panel panel-height-medium">
+            <div class="dashboard-card dashboard-quizzes-card moi-card card-orange">
+              <div class="moi-card-header">
+                <div class="moi-card-title">[[ t("views.tutor.dashboard.card_quizzes.title") ]]</div>
+              </div>
+              <div class="moi-card-content">
+
+                <moi-quiz-card-content auth-token="{{ authToken }}" options="{{quizContentCardOptions}}">
+                </moi-quiz-card-content>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+  <script src="moi-dashboard-view.js"></script>
+</dom-module>

@@ -1,2 +1,0 @@
-Polymer
-  is: 'test-one'

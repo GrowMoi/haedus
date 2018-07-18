@@ -8,9 +8,9 @@ nav.navbar.navbar-default.navbar-fixed-top.navbar-tutor
         span.icon-bar
     #navbar.navbar-collapse.collapse
       ul.nav.navbar-nav.navbar-tutor-first-section
-        li.item-moi(class=(params[:controller] == 'tutor/moi' ? 'active' : ''))
+        li.item-dashboard(class=(params[:controller] == 'tutor/dashboard' ? 'active' : ''))
           = image_tag("moi_navbar_brain.png")
-          = link_to t("views.tutor.navbar.moi"), tutor_moi_index_path, class:"navbar-link-moi", id:"navbar-link-moi"
+          = link_to t("views.tutor.navbar.moi"), tutor_dashboard_index_path, class:"navbar-link-dashboard", id:"navbar-link-dashboard"
         li.item-client(class=(params[:controller] == 'tutor/client' ? 'active' : ''))
           = image_tag("moi_navbar_client.png")
           = link_to t("views.tutor.navbar.client"), tutor_client_index_path, class:"link-client", id:"navbar-link-client"
@@ -20,7 +20,7 @@ nav.navbar.navbar-default.navbar-fixed-top.navbar-tutor
         li.item-analysis(class=(params[:controller] == 'tutor/analysis' ? 'active' : ''))
           = image_tag("moi_navbar_chart.png")
           = link_to t("views.tutor.navbar.analisys"), tutor_analysis_index_path, class:"navbar-link-analysis", id:"navbar-link-analysis"
-        li.item-recommendations(class=(params[:controller] == 'tutor/recommendations/new' ? 'active' : ''))
+        li.item-recommendations(class=(params[:controller] == 'tutor/recommendations' ? 'active' : ''))
           = image_tag("moi_navbar_recommendations.svg")
           = link_to t("views.tutor.navbar.recommendations"), new_tutor_recommendation_path, class:"navbar-link-recommendations", id:"navbar-link-recommendations"
       ul.nav.navbar-nav.navbar-right.navbar-tutor-last-item
@@ -30,5 +30,12 @@ nav.navbar.navbar-default.navbar-fixed-top.navbar-tutor
             = t("views.tutor.navbar.tutor")
             span.caret
           ul.dropdown-menu.dropdown-tutor
+            li
+              = link_to t("views.tutor.navbar.profile"), tutor_profile_index_path
+            li
+              = link_to t("views.tutor.navbar.notifications"), tutor_notifications_path
+            - if current_user.admin?
+              li.tutor-option-logout
+                = link_to t("views.tutor.navbar.change_to_admin"), admin_root_path, class:"link-tutor-logout"
             li.tutor-option-logout
               = link_to t("views.tutor.navbar.logout"), destroy_user_session_path, class:"link-tutor-logout", :method => :delete

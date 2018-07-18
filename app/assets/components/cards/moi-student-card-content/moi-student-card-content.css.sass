@@ -1,0 +1,57 @@
+@import ../../styles/mixins
+@import ../../styles/variables
+
+\:host
+  height: 100%
+  position: relative
+
+  .options
+    display: flex
+    align-items: center
+
+    .btn-remove
+      color: $base-color-red
+      margin-left: 0.5rem
+      min-width: 3.14em
+
+      &:hover
+        background-color: $base-color-red
+        color: $white
+
+    .btn-cancel
+      color: $base-color-brown
+      margin-left: 0.5rem
+      min-width: 3.14em
+
+      &:hover
+        background-color: $base-color-brown
+        color: $white
+
+  paper-button
+    border: 1px solid
+    width: 100%
+    font-size: 1rem
+    margin: 0
+
+  paper-toast
+    top: 0
+    bottom: auto
+    width: auto
+    right: 10%
+    left: auto
+    z-index: 10000
+
+  .disabled
+    opacity: 0.5
+    pointer-events: none
+
+  .status
+    max-width: 7rem
+
+    &:hover
+      background-color: $base-color-red
+      color: $white
+
+  +var(moi-download-button-color, $base-color-green)
+  +var(moi-download-button-border-color, $base-color-green)
+  +var(moi-selectable-row-info-width, 14rem)

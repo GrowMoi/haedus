@@ -74,7 +74,7 @@ class Content < ActiveRecord::Base
     accepts_nested_attributes_for :content_medium,
       allow_destroy: true,
       reject_if: ->(attributes) {
-        attributes["media"].blank?
+        attributes["media"].blank? && attributes["remote_media_url"].blank?
       }
 
     accepts_nested_attributes_for :content_links,

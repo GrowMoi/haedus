@@ -10,12 +10,20 @@ loadBubbleChart = () ->
     chart.renderBubbleChart
       data: data
       width: 500
+      margin:
+        top: 20
+        right: 300
+        bottom: 30
+        left: 40
       selector: container
 
     loading.hide(container)
 
+isReportPage = ->
+  $(reportPage).length > 0
+
 loadCharts = ->
-  if $(reportPage).length > 0
+  if isReportPage()
     userId = getParam('user_id')
     loadDonutChart(userId)
     loadBarChart()
@@ -50,9 +58,9 @@ loadBarChart = ->
       selector: container
       margin:
         top: 20
-        right: 250
-        bottom: 200
-        left: 40
+        right: 300
+        bottom: 250
+        left: 90
 
     loading.hide(container)
   return

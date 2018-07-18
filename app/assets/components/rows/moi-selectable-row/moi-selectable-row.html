@@ -1,0 +1,25 @@
+<dom-module id="moi-selectable-row">
+  <link rel="stylesheet" href="moi-selectable-row.css" />
+  <template>
+    <div class="row-container" on-tap="selectRow">
+      <template is="dom-if" if="{{selected}}" restamp>
+        <div class="selector">
+          <img src$="{{imgSelector}}" alt="">
+        </div>
+      </template>
+      <div class="avatar">
+        <img src$="{{imgAvatar}}" alt="">
+      </div>
+      <div class="user-info">
+        <div class="name">{{name}}</div>
+        <div class="username">
+          <small>{{username}}</small>
+        </div>
+      </div>
+      <div class="options">
+        <content></content>
+      </div>
+    </div>
+  </template>
+  <script src="moi-selectable-row.js"></script>
+</dom-module>

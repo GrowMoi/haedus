@@ -1,0 +1,38 @@
+= form_for tutor_achievement, url: url,
+                              method: method,
+                              html: {id: "form-new-achievement"} do |f|
+  = render "admin/shared/form_errors",
+        resource: tutor_achievement
+
+  = hidden_field_tag :authenticity_token, form_authenticity_token
+
+  .form-group
+    = f.label t("views.tutor.common.form_achievements.name")
+    = f.text_field :name, class: "form-control"
+
+  .form-group
+    = f.label t("views.tutor.common.form_achievements.description")
+    = f.text_area :description, class: "form-control"
+
+  - if tutor_achievement.image_url.present?
+    .form-group
+      = f.label t("views.tutor.common.form_achievements.current_image")
+      .current-image-selected
+        = image_tag tutor_achievement.image_url
+  .form-group
+    = f.label  t("views.tutor.common.form_achievements.image")
+    .form-group.form-group-select-image
+      = tooltip t("views.tutor.common.form_achievements.attach_image"),
+                place: "left",
+                class: "btn btn-xs btn-default content-media-uploader" do
+        .glyphicon.glyphicon-cloud-upload
+
+      .hidden
+        = f.file_field :image, id: "achievement-file-select"
+
+      span.moi-dialog-image-selector-container.content-media-name-on-form(id="content-media-name-on-form")
+
+  .actions
+    = f.submit t("views.tutor.common.form_achievements.send"),
+                class: "btn action-send",
+                data: { disable_with: t("views.submitting") }

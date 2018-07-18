@@ -1,18 +1,24 @@
-h2 = t "devise.change_password"
+.user-session
+  .user-session-background
+    .user-form
+      .user-form-header
+        = t "devise.change_password"
 
-= form_for(resource, as: resource_name, url: user_password_path, html: { method: :put }) do |f|
-  = devise_error_messages!
-  = f.hidden_field :reset_password_token
+      .user-form-body
+        = form_for(resource, as: resource_name, url: user_password_path, html: { method: :put }) do |f|
+          = devise_error_messages!
+          = f.hidden_field :reset_password_token
 
-  .form-group
-    = f.label :password, t("devise.new_password")
-    = f.password_field :password, autofocus: true, autocomplete: "off", class: "form-control"
+          .form-group.input-container
+            = f.label :password, t("devise.new_password")
+            = f.password_field :password, autofocus: true, autocomplete: "off", class: "form-control"
 
-  .form-group
-    = f.label :password_confirmation, t("devise.confirm_new_password")
-    = f.password_field :password_confirmation, autocomplete: "off", class: "form-control"
+          .form-group.input-container
+            = f.label :password_confirmation, t("devise.confirm_new_password")
+            = f.password_field :password_confirmation, autocomplete: "off", class: "form-control"
 
-  .actions
-    = f.submit t("devise.change_password"), data: { disable_with: t("devise.change_password") }, class: "btn btn-primary"
+          .actions
+            = f.submit t("devise.change_password"), data: { disable_with: t("devise.change_password") }, class: "btn btn-primary btn-send-data"
 
-= render "devise/shared/links"
+        .links-container
+          = render "devise/shared/links"

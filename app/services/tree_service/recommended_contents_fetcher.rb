@@ -30,16 +30,6 @@ module TreeService
           level: preferred_level,
           count: COUNT
         )
-        # keep adding contents to pool if there's
-        # not enough
-        missing = COUNT - contents_pool.count
-        while missing > 0 && @remaining_levels.any?
-          level = @remaining_levels.slice!(0)
-          pool_contents!(
-            level: level,
-            count: missing
-          )
-        end
       end
     end
 

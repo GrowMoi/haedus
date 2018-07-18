@@ -49,7 +49,7 @@ $(document).on "ready page:load", ->
   if $(formWrapper).length > 0
     new NeuronTabSwitcher(currentHash)
 
-beforeUnloadEvent = "page:before-unload.NeuronTabSwitcher"
-$(document).on beforeUnloadEvent, =>
-  # apply old hash
-  window.location.hash = currentHash
+# beforeUnloadEvent = "page:before-unload.NeuronTabSwitcher"
+# $(document).on beforeUnloadEvent, =>
+#   # apply old hash
+#   window.location.hash = currentHash

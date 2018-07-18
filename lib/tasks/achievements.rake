@@ -88,6 +88,15 @@ achievements_params = [
       continuous: false
     },
     number: 9
+  },
+  {
+    name: "Final del Juego",
+    description: "El usuario ha alcanzado el 9 nivel",
+    category: "test",
+    settings: {
+      level: 9
+    },
+    number: 10
   }
 ]
 
@@ -109,9 +118,8 @@ namespace :achievements do
     clients = User.where(id: clients_ids)
     achievements_db = AdminAchievement.all
     clients.each do |client|
-      my_achievements = client.user_admin_achievements
-      no_achievements = achievements_db
-                        .reject{ |x| my_achievements.include? x }
+      my_achievements = client.user_admin_achievements.map(&:admin_achievement_id)
+      no_achievements = achievements_db.reject{ |x| my_achievements.include? x.id }
       assign_achievement(no_achievements, client)
     end
   end
@@ -122,7 +130,7 @@ def assign_achievement(achievements, user)
   achievements.each do |achievement|
     if achievement.user_win_achievement?(user)
       UserAdminAchievement.create!(user_id: user.id, admin_achievement_id: achievement.id)
-      puts "user: #{user.name}, id: #{user.id}, achievement assign: #{achievement.name}"
+      puts "user: #{user.name}, user_id: #{user.id}, achievement assign: #{achievement.name}"
     end
   end
 end

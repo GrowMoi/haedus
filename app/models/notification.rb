@@ -9,6 +9,8 @@
 #  user_id     :integer          not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  client_id   :integer
+#  data_type   :string
 #
 
 class Notification < ActiveRecord::Base
@@ -23,6 +25,10 @@ class Notification < ActiveRecord::Base
 
   begin :relationships
     belongs_to :user
+
+    belongs_to :client,
+             class_name: "User",
+             foreign_key: "client_id"
 
     has_many :notification_videos,
               dependent: :destroy
@@ -71,7 +77,15 @@ class Notification < ActiveRecord::Base
   def send_pusher_notification!
     formated = format_notification(self)
     user_channel_general = "usernotifications.general"
-    Pusher.trigger(user_channel_general, 'new-notification', formated)
+    begin
+      Pusher.trigger(user_channel_general, 'new-notification', formated)
+    rescue Exception => e
+      puts e.message
+      puts e.backtrace.inspect
+    else
+      puts "PUSHER: Message sent successfully!"
+      puts "PUSHER: #{formated}"
+    end
   end
 
   def format_notification(notification_created)

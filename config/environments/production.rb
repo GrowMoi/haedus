@@ -88,12 +88,22 @@ Rails.application.configure do
 
   config.middleware.insert_before 0, "Rack::Cors" do
     allow do
-      origins "http://moi.growmoi.com"
+      origins "http://moi.growmoi.com",
+              "https://moi.growmoi.com"
 
       resource "/api/*",
                headers: :any,
                methods: [:get, :post, :delete, :put, :patch, :options, :head],
                expose:  ["access-token", "expiry", "token-type", "uid", "client"]
+    end
+
+    allow do
+      origins "http://moi.growmoi.com",
+              "https://moi.growmoi.com",
+              "http://moi-backend.growmoi.com",
+              "https://moi-backend.growmoi.com"
+
+      resource '/assets/*'
     end
   end
 end

@@ -1,0 +1,37 @@
+doctype html
+html
+  head
+    meta charset="utf-8"
+    title = @social_sharing.titulo
+
+    meta property="og:type" content="article"
+    meta property="fb:app_id" content="#{facebook_app_id}"
+    meta name="twitter:card" content="summary"
+    meta name="twitter:site" content="#{twitter_site}"
+    meta name="twitter:creator" content="#{twitter_site}"
+    meta(
+      property="og:url"
+      content="#{public_sharing_url(id: @social_sharing.slug)}"
+    )
+    meta(
+      property="og:title"
+      content="#{@social_sharing.titulo}"
+    )
+    meta(
+      property="og:description"
+      content="#{@social_sharing.descripcion}"
+    )
+    meta(
+      property="og:image"
+      content="#{@social_sharing.imagen_url}"
+    )
+    - if @social_sharing.image_width.present?
+      meta(
+        property="og:image:width"
+        content="#{@social_sharing.image_width}"
+      )
+    - if @social_sharing.image_height.present?
+      meta(
+        property="og:image:height"
+        content="#{@social_sharing.image_height}"
+      )

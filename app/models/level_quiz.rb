@@ -8,6 +8,7 @@
 #  content_ids :text             default([]), is an Array
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  created_by  :integer
 #
 
 class LevelQuiz < ActiveRecord::Base

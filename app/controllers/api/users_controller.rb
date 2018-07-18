@@ -116,5 +116,29 @@ module Api
         serializer: Api::ContentTasksSerializer
       )
     end
+
+    api :POST,
+      "/api/users/shared_contents",
+      "Send a email with an screenshot(Shared content)"
+    param :email, String
+    param :public_url, String
+    param :image_url, String
+
+    def shared_contents
+      areValidParams = !params[:email].blank? && !params[:public_url].blank? && !params[:image_url].blank?
+      if (areValidParams)
+        UserMailer.shared_content(
+          current_user.username,
+          params[:email],
+          params[:image_url],
+          params[:public_url]).deliver_now
+        render nothing: true,
+                status: :accepted
+      else
+        render text: "invalid params",
+              status: :unprocessable_entity
+      end
+    end
+
   end
 end

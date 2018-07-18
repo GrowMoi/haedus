@@ -1,0 +1,165 @@
+<dom-module id="moi-tutor-notifications-card-content">
+  <link rel="stylesheet" href="moi-tutor-notifications-card-content.css" />
+  <template>
+
+    <paper-toast id="toast-message" duration="5000" text="{{ toastMessage }}"></paper-toast>
+
+    <template is="dom-if" if="{{ loading }}" restamp>
+      <div>{{ t('views.loading') }}</div>
+    </template>
+    <template is="dom-if" if="{{ !loading }}" restamp>
+      <div class="notification-list-container">
+
+        <template is="dom-if" if="{{emptyNotifications}}" restamp>
+          <div class="message-empty">
+            <span>[[ t('views.tutor.dashboard.card_tutor_notifications.empty_notifications') ]]</span>
+          </div>
+        </template>
+
+        <template is="dom-repeat" items="{{ notifications }}">
+          <div class="notification-info">
+            <div class="info">
+              <div class="opened-container">
+                <template is="dom-if" if="{{ !item.opened }}" restamp>
+                  <span>*</span>
+                </template>
+              </div>
+              <div class="image">
+                <img src$="[[ rowImage ]]" alt="">
+              </div>
+              <div class="details">
+                <div>{{item.title}}</div>
+                <div>
+                  <small>{{ item.client.username}}</small>
+                </div>
+
+              </div >
+            </div>
+            <div class="options">
+              <paper-button on-tap="openDialogDetails">
+                <span>[[ t('views.tutor.dashboard.card_tutor_notifications.details') ]]</span>
+              </paper-button>
+              <paper-button class="btn-remove" on-tap="openDialogConfirm">
+                <span>X</span>
+              </paper-button>
+            </div>
+          </div>
+        </template>
+      </div>
+    </template>
+
+    <moi-dialog title="Confirmación" width="500" id="dialog-confirm" theme="red">
+      <p>¿Desea eliminar esta notificacion?</p>
+      <div class="options">
+        <paper-button on-tap="closeDialogConfirm" class="btn-cancel">
+          <span>[[ t('views.tutor.dashboard.card_students.dialog.confirm.buttons.cancel') ]]</span>
+        </paper-button>
+        <paper-button on-tap="removeNotification" class="btn-remove">
+          <span>[[ t('views.tutor.dashboard.card_students.dialog.confirm.buttons.remove') ]]</span>
+        </paper-button>
+      </div>
+    </moi-dialog>
+
+    <template is="dom-if" if="{{ clientTestCompleted }}" restamp>
+      <moi-dialog title="[[ t('views.tutor.dashboard.card_tutor_notifications.results') ]]" width="500" id="dialog-notification-info"
+        theme="green">
+        <template is="dom-if" if="{{ loadingDialogData }}" restamp>
+          <div>{{ t('views.loading') }}</div>
+        </template>
+        <template is="dom-if" if="{{ !loadingDialogData }}" restamp>
+          <h3>
+            <span>[[ t('views.tutor.dashboard.card_tutor_notifications.player') ]]</span>
+            <span>{{notificationData.playerName}}</span>
+          </h3>
+          <span>Username:
+            <span>{{notificationData.username}}</span>
+          </span>
+          <br>
+          <br>
+          <div>
+            <p>{{notificationData.description}}</p>
+            <p>{{notificationDatatimeMessage}}</p>
+          </div>
+          <div>
+            <ul>
+              <template is="dom-repeat" items="{{ notificationData.answers }}" as="result">
+                <li>
+                  <span>{{ result }}</span>
+                </li>
+              </template>
+            </ul>
+          </div>
+        </template>
+      </moi-dialog>
+    </template>
+
+    <template is="dom-if" if="{{ clientMessageOpen }}" restamp>
+      <moi-dialog title="Detalles" width="500" id="dialog-notification-info"
+        theme="green">
+        <template is="dom-if" if="{{ loadingDialogData }}" restamp>
+          <div>{{ t('views.loading') }}</div>
+        </template>
+        <template is="dom-if" if="{{ !loadingDialogData }}" restamp>
+          <div>Usuario:</div>
+          <h3>{{notificationData.username}}</h3>
+          <br>
+          <div>
+            <div>Título:</div>
+            <h4>{{notificationData.title}}</h4>
+            <br>
+            <div>Descripción:</div>
+            <p>{{notificationData.description}}</p>
+            <br>
+            <div>Visto en:</div>
+            <p>{{notificationData.seenAt}}</p>
+          </div>
+        </template>
+      </moi-dialog>
+    </template>
+
+    <template is="dom-if" if="{{ clientGotItem }}" restamp>
+      <moi-dialog title="Detalles" width="500" id="dialog-notification-info"
+        theme="green">
+        <template is="dom-if" if="{{ loadingDialogData }}" restamp>
+          <div>{{ t('views.loading') }}</div>
+        </template>
+        <template is="dom-if" if="{{ !loadingDialogData }}" restamp>
+          <div>Usuario:</div>
+          <h3>{{notificationData.username}}</h3>
+          <br>
+          <div>
+            <div>Nombre de la recompensa:</div>
+            <h4>{{notificationData.name}}</h4>
+            <br>
+            <div>Descripción:</div>
+            <p>{{notificationData.description}}</p>
+          </div>
+        </template>
+      </moi-dialog>
+    </template>
+
+    <template is="dom-if" if="{{ clientRecommendedContentsCompleted }}" restamp>
+      <moi-dialog title="Detalles" width="500" id="dialog-notification-info"
+        theme="green">
+        <template is="dom-if" if="{{ loadingDialogData }}" restamp>
+          <div>{{ t('views.loading') }}</div>
+        </template>
+        <template is="dom-if" if="{{ !loadingDialogData }}" restamp>
+          <div>Usuario:</div>
+          <h3>{{notificationData.username}}</h3>
+          <br>
+          <div>
+            <div>Contenidos recomendados:</div>
+            <ul>
+              <template is="dom-repeat" items="{{ notificationData.contents }}" as="content">
+                <li>{{content.title}}</li>
+              </template>
+            </ul>
+          </div>
+        </template>
+      </moi-dialog>
+    </template>
+
+  </template>
+  <script src="moi-tutor-notifications-card-content.js"></script>
+</dom-module>

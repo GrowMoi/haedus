@@ -1,0 +1,15 @@
+@import ../../styles/mixins
+@import ../../styles/variables
+
+\:host
+  .container-recommendations
+    border: 0.1rem solid $base-color-dark-green
+    display: flex
+    &:after
+      background-color: $base-color-dark-green
+
+    &:before
+      background-color: $base-color-dark-green
+
+  +var(moi-select-border-color, $base-color-dark-green)
+  +var(moi-choosen-border, 1px solid $base-color-dark-green)

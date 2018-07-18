@@ -37,7 +37,7 @@ module Api
                :provider,
                :country,
                :school,
-               :birthday,
+               :age,
                :city,
                :tree_image,
                :username,

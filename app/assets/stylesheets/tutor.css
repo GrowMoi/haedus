@@ -13,5 +13,6 @@
  *= require chosen.min
  *= require jquery-ui/core
  *= require jquery-ui/dialog
- *= require_tree ./tutor
+ *= require_tree ./tutor/base
+ *= require_tree ./tutor/pages
  */

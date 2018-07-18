@@ -8,6 +8,7 @@
 #  quiz_id    :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  client_id  :integer
 #
 
 class Player < ActiveRecord::Base

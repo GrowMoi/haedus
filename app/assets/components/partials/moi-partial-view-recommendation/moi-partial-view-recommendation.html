@@ -1,0 +1,35 @@
+<dom-module id="moi-partial-view-recommendation">
+  <link rel="stylesheet" href="moi-partial-view-recommendation.css" />
+  <template>
+    <div class="recommendations-form">
+      <template is="dom-if" if="{{ !loading }}" restamp>
+        <div class="recommendations-form-content">
+          <div class="form-group left-container">
+            <div class="student-selector-container">
+              <moi-select items="{{ students }}" on-item-selected="onStudentSelected" placeholder$="[[ t('views.tutor.dashboard.card_quizzes.students_placeholder') ]]"></moi-select>
+            </div>
+            <div>
+              <label for="tutor_recommendation_content_tutor_recommendations">Contenidos a recomendar</label>
+              <template is="dom-if" if="{{ !loadingContents }}" restamp>
+                <moi-chosen id="content-choosen" class="moi-chosen" items="{{ contents }}" on-item-selected="onChoosenContentSelected" on-item-deselected="onChoosenContentDeselected"
+                  placeholder="[[ t('views.tutor.dashboard.card_recommendations.contents_placeholder') ]]">
+                </moi-chosen>
+              </template>
+              <div class="input-info">Elija los contenidos que quiera recomendar.</div>
+            </div>
+          </div>
+          <div class="form-group right-container">
+            <label for="tutor_recommendation_tutor_achievement">Recompensa</label>
+            <moi-select items="{{ achievements }}" on-item-selected="onAchievementSelected" placeholder="[[ t('views.tutor.dashboard.card_recommendations.achievements_placeholder') ]]"></moi-select>
+            <div class="input-info">Establezca una recompensa que recibirá el o los usuarios al completar los contenidos recomendados.</div>
+            <button on-tap="openDialog" id="btn-achievement" class="btn-action button-dialog-new-achievement"> Agregar una nueva recompensa</button>
+          </div>
+        </div>
+        <div class="recommendations-form-actions">
+          <button class="btn-action user-link recommendations-user-link" id="btn-send" on-tap="sendRecommendation">Enviar Recomendacion</button>
+        </div>
+      </template>
+    </div>
+  </template>
+  <script src="moi-partial-view-recommendation.js"></script>
+</dom-module>

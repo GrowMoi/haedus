@@ -1,0 +1,32 @@
+- content_for :title, t("activerecord.models.content_importing").pluralize
+
+.pull-right
+  = link_to new_admin_content_importing_path,
+            class: "btn btn-sm btn-default" do
+    span.glyphicon.glyphicon-plus
+    =< t("actions.new")
+
+table.table.table-striped
+  thead
+    tr
+      th = t("views.content_importings.date")
+      th = t("views.content_importings.status")
+      th = t("views.content_importings.user")
+      th = t("views.content_importings.file")
+      th = t("views.content_importings.imported_contents")
+  tbody
+    - @content_importings.each do |content_importing|
+      tr
+        td = l content_importing.created_at, format: :short
+        td = content_importing.status_text
+        td
+          = link_to content_importing.user,
+                    admin_user_path(content_importing.user)
+        td
+          = link_to content_importing.filename,
+                    content_importing.file_url
+        td
+          = link_to admin_content_importing_path(content_importing) do
+            = content_importing.imported_contents_ids.count
+            - if content_importing.imported_contents_ids.count > 0
+              =< t("views.content_importings.show_detail")

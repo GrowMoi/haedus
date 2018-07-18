@@ -1,0 +1,14 @@
+<dom-module id="moi-dialog">
+  <link rel="stylesheet" href="moi-dialog.css" />
+  <template>
+    <div id="moi-dialog-content" style$="{{ dialogWidth }}">
+      <div class="header" id="header">
+        <span class="title">{{ title }}</span>
+        <button on-tap="closeDialog" class="btn-close glyphicon glyphicon-remove"></button>
+      </div>
+      <content></content>
+    </div>
+    <div id="moi-dialog-overlay"></div>
+  </template>
+  <script src="moi-dialog.js"></script>
+</dom-module>

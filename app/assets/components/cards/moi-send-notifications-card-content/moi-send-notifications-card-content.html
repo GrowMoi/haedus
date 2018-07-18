@@ -1,0 +1,38 @@
+<dom-module id="moi-send-notifications-card-content">
+  <link rel="stylesheet" href="moi-send-notifications-card-content.css" />
+  <template>
+    <template is="dom-if" if="{{ loading }}" restamp>
+      <div>{{ t('views.tutor.dashboard.card_students.loading_students') }}</div>
+    </template>
+
+    <template is="dom-if" if="{{ !loading }}" restamp>
+      <form enctype="multipart/form-data" action="/tutor/dashboard/send_notification" accept-charset="UTF-8" method="post" id="form">
+        <input name="utf8" value="✓" type="hidden">
+        <input name="authenticity_token" value="{{authToken}}" type="hidden">
+        <div class="form-group">
+          <moi-select items="{{ students }}" name="notification[students][]"  on-item-selected="onStudentSelected" placeholder$="[[ t('views.tutor.dashboard.card_quizzes.students_placeholder') ]]"></moi-select>
+        </div>
+        <div class="form-group">
+          <input class="form-control" value="{{notificationTitle::input}}" name="notification[title]" type="text" placeholder$="[[ t('views.tutor.dashboard.card_send_notifications.form_placeholder_title') ]]">
+        </div>
+        <div class="form-group">
+          <textarea class="form-control" name="notification[description]" placeholder$="[[ t('views.tutor.dashboard.card_send_notifications.form_placeholder_description') ]]" rows="1"></textarea>
+        </div>
+        <div class="form-group">
+          <input class="form-control" placeholder$="[[ t('views.tutor.dashboard.card_send_notifications.form_placeholder_video') ]]" name="notification[notification_videos_attributes][0][url]" type="text">
+        </div>
+        <div class="form-group">
+          <label>[[ t('views.tutor.dashboard.card_send_notifications.form_image_label') ]]</label>
+          <div class="form-group">
+            <input type="file" on-change="onSelectFile" name$="{{ mediaInputName }}"  accept=".jpg, .jpeg, .png" multiple/>
+            <input type="hidden" name="{{ cacheName }}"/>
+          </div>
+        </div>
+        <moi-actions-row>
+          <button class="btn action-send" type="submit" id="btnsend" data-disable-with$="{{ t('views.submitting') }}" >[[ t('views.tutor.common.send') ]]</button>
+        </moi-actions-row>
+      </form>
+    </template>
+  </template>
+  <script src="moi-send-notifications-card-content.js"></script>
+</dom-module>

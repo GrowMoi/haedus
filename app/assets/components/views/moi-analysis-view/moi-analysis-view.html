@@ -1,0 +1,93 @@
+<dom-module id="moi-analysis-view">
+  <link rel="stylesheet" href="moi-analysis-view.css" />
+  <template>
+    <moi-badge counter="{{notificationCounter}}"></moi-badge>
+    <div>
+      <moi-select items="{{ students }}" on-item-selected="onStudentSelected" placeholder$="[[ t('views.tutor.dashboard.card_quizzes.students_placeholder') ]]"
+        on-items-loaded="onSelectItemsLoaded"></moi-select>
+    </div>
+    <template is="dom-if" if="{{ loading }}" restamp>
+      <div class="loading-data">{{ t('views.loading') }}</div>
+    </template>
+    <template is="dom-if" if="{{ !loading }}" restamp>
+      <template is="dom-if" if="{{ !userIdSelected }}" restamp>
+        <div class="container-tutor-internal container-analysis container-analysis-empty">
+          <span class="info">[[ t('views.tutor.client.select_user') ]]</span>
+        </div>
+      </template>
+      <template is="dom-if" if="{{ userIdSelected }}" restamp>
+        <div class="container-tutor-internal container-analysis analysis-details">
+          <div class="data-container">
+            <div class="user-name">{{ data.username }}</div>
+            <div class="row-analysis-info">
+              <div class="container-analysis-info">
+                <div class="header">{{ data.statistics.total_neurons_learnt.meta.label_analysis }}</div>
+                <div class="body">{{ data.statistics.total_neurons_learnt.value }}</div>
+              </div>
+              <div class="container-analysis-info">
+                <div class="header">{{ data.statistics.total_content_readings.meta.label_analysis }}</div>
+                <div class="body">{{ data.statistics.total_content_readings.value }}</div>
+              </div>
+            </div>
+            <div class="row-analysis-info">
+              <div class="container-analysis-info">
+                <div class="header">{{ data.statistics.total_right_questions.meta.label_analysis }}</div>
+                <div class="body">{{ data.statistics.total_right_questions.value }}</div>
+              </div>
+              <div class="container-analysis-info">
+                <div class="header">{{ data.statistics.total_notes.meta.label_analysis }}</div>
+                <div class="body">{{ data.statistics.total_notes.value }}</div>
+              </div>
+            </div>
+            <div class="row-analysis-info">
+              <div class="container-analysis-info">
+                <div class="header">{{ data.statistics.images_opened_in_count.meta.label_analysis }}</div>
+                <div class="body">{{ data.statistics.images_opened_in_count.value }}</div>
+              </div>
+              <div class="container-analysis-info">
+                <div class="header">{{ data.statistics.user_sign_in_count.meta.label_analysis }}</div>
+                <div class="body">{{ data.statistics.user_sign_in_count.value }}</div>
+              </div>
+            </div>
+            <div class="row-analysis-info">
+              <div class="container-analysis-info">
+                <div class="header">{{ data.statistics.used_time.meta.label_analysis }}</div>
+                <div class="body">{{ data.statistics.used_time.value_humanized }}</div>
+              </div>
+            </div>
+            <div class="row-analysis-info">
+              <div class="row-title">{{ data.statistics.content_readings_by_branch.meta.label_analysis }}</div>
+            </div>
+            <div class="row-analysis-info">
+              <template is="dom-repeat" items="{{ data.statistics.content_readings_by_branch.value }}">
+                <div class="container-analysis-info">
+                  <div class="header">{{ item.label }}</div>
+                  <div class="body">{{ item.value }}</div>
+                </div>
+              </template>
+            </div>
+
+            <template is="dom-if" if="{{ hasContentReadingTime }}" restamp>
+              <div class="row-analysis-info">
+                <div class="row-title">{{ t('views.tutor.analysis.reading_time_content') }}</div>
+              </div>
+            </template>
+
+            <template is="dom-repeat" as="readingTimes" items="{{ data.grouped_reading_time }}">
+              <div class="row-analysis-info">
+                <template is="dom-repeat" as="timeObj" items="{{ readingTimes }}">
+                  <div class="container-analysis-info">
+                    <div class="header">{{ timeObj.title }}</div>
+                    <div class="body">{{ timeObj.time_humanized }}</div>
+                  </div>
+                </template>
+              </div>
+            </template>
+          </div>
+        </div>
+      </template>
+
+    </template>
+  </template>
+  <script src="moi-analysis-view.js"></script>
+</dom-module>

@@ -6,7 +6,7 @@ module AnalyticService
 
     def results
       user_tests = ContentLearningTest.where(user: @user)
-      user_tests_formated = user_tests.map do |test|
+      user_tests.map do |test|
         questions_formated = test["questions"].map do |question|
           if test["answers"]
             answer = test["answers"].detect {|a| a["content_id"] == question["content_id"]}

@@ -1,0 +1,35 @@
+<dom-module id="moi-partial-card-recommendation">
+  <link rel="stylesheet" href="moi-partial-card-recommendation.css" />
+  <template>
+    <div class="data-container">
+      <template is="dom-if" if="{{ !loading }}" restamp>
+
+        <div class="row-select">
+          <moi-select items="{{ students }}" on-item-selected="onStudentSelected" placeholder$="[[ t('views.tutor.dashboard.card_quizzes.students_placeholder') ]]"></moi-select>
+        </div>
+
+        <div class="row-select">
+          <moi-select items="{{ achievements }}" on-item-selected="onAchievementSelected" placeholder="[[ t('views.tutor.dashboard.card_recommendations.achievements_placeholder') ]]"></moi-select>
+        </div>
+
+        <div class="row-select" id="moi-choosen-container">
+          <template is="dom-if" if="{{ !loadingContents }}" restamp>
+            <moi-chosen id="content-choosen" class="moi-chosen" items="{{ contents }}" on-item-selected="onChoosenContentSelected" on-item-deselected="onChoosenContentDeselected"
+              placeholder="[[ t('views.tutor.dashboard.card_recommendations.contents_placeholder') ]]">
+            </moi-chosen>
+          </template>
+        </div>
+
+        <moi-actions-row>
+          <button class="btn-action" id="btn-achievement" on-tap="openDialog">{{ t('views.tutor.dashboard.card_recommendations.btn_achievement_dialog') }}</button>
+          <button class="btn-action" id="btn-send" on-tap="sendRecommendation">{{ btnSendText }}</button>
+        </moi-actions-row>
+
+      </template>
+
+
+    </div>
+
+  </template>
+  <script src="moi-partial-card-recommendation.js"></script>
+</dom-module>

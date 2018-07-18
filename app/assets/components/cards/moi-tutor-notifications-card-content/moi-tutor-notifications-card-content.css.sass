@@ -1,0 +1,65 @@
+@import ../../styles/mixins
+@import ../../styles/variables
+
+\:host
+  paper-toast
+    top: 0
+    bottom: auto
+    width: auto
+    right: 10%
+    left: auto
+    z-index: 10000
+  .notification-info:nth-child(odd)
+    background-color: $base-color-light-gray
+
+  .notification-info::nth-child(even)
+    background-color: green
+
+  .notification-info
+    display: flex
+    width: 50%
+    padding-left: 1rem
+    border-left: 0.2rem solid transparent
+    height: 4rem
+
+    .opened-container
+      width: 1.5rem
+      display: flex
+      align-items: center
+      justify-content: center
+      font-size: 2rem
+      color: $base-color-red
+    .info
+      flex-basis: 70%
+      display: flex
+      .image
+        width: 3rem
+      .details
+        display: flex
+        flex-direction: column
+
+    .options
+      display: none
+      align-items: center
+      justify-content: flex-end
+      margin-right: 1rem
+      flex-basis: 30%
+      .btn-remove
+        min-width: 3rem
+        &:hover
+          background-color: $base-color-red
+
+    paper-button
+      font-size: 1rem
+      &:hover
+        background-color: $base-color-green
+
+    &:hover
+      border-left: 0.2rem solid $base-color-green
+      .options
+        display: flex
+  .message-empty
+    position: absolute
+    left: 50%
+    top: 50%
+    transform: translate(-50%, -50%)

@@ -1,0 +1,36 @@
+- content_for :title, t("activerecord.models.content_importing")
+
+p
+  strong = t("views.content_importings.date")
+  =< l resource.created_at, format: :short
+
+p
+  strong = t("views.content_importings.status")
+  =< resource.status_text
+
+p
+  strong = t("views.content_importings.user")
+  =< link_to resource.user,
+             admin_user_path(resource.user)
+
+p
+  strong = t("views.content_importings.file")
+  =< link_to resource.filename,
+             resource.file_url
+
+- if resource.imported_contents_ids.count > 0
+  h3.text-center = t("views.content_importings.imported_contents")
+  table.table.table-striped
+    thead
+      tr
+        th = t("activerecord.models.neuron")
+        th = t("activerecord.models.content")
+    tbody
+      - @decorated_resource.imported_contents.each do |content|
+        tr
+          td
+            = link_to content.neuron,
+                      admin_neuron_path(content.neuron)
+          td
+            = link_to content.title,
+                      admin_neuron_path(content.neuron, anchor: "contents")

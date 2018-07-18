@@ -14,13 +14,15 @@ class UserTutor < ActiveRecord::Base
   belongs_to :user
   belongs_to :tutor, class_name: "User"
 
-  STATUSES = %w(accepted rejected).freeze
+  STATUSES = %w(accepted rejected deleted).freeze
 
   validates :status, inclusion: { in: STATUSES }, allow_blank: true
-  validate :unique_request_for_user, on: :create
+  validate :unique_request_for_user_accepted, on: :create
 
   scope :pending, -> { where status: nil }
   scope :accepted, -> { where status: "accepted" }
+  scope :deleted, -> { where status: "deleted" }
+  scope :not_deleted, -> { where("status IS NULL OR status = ?", "accepted") }
 
   after_create :delayed_notify_user!
 
@@ -41,16 +43,26 @@ class UserTutor < ActiveRecord::Base
 
   def send_pusher_notification!
     user_channel = "usernotifications.#{user.id}"
-    Pusher.trigger(user_channel, 'new-notification', {
+    data = {
       description: I18n.t(
         "views.tutor.moi.user_notification",
         tutor_name: tutor.name
       )
-    })
+    }
+    begin
+      Pusher.trigger(user_channel, 'new-notification', data)
+    rescue Exception => e
+      puts e.message
+      puts e.backtrace.inspect
+    else
+      puts "PUSHER: Message sent successfully!"
+      puts "PUSHER: #{data}"
+    end
   end
 
-  def unique_request_for_user
-    if self.class.where(user_id: user_id, tutor_id: tutor_id).exists?
+  def unique_request_for_user_accepted
+    was_deleted  = self.class.where(user_id: user_id, tutor_id: tutor_id, status: "deleted").exists?
+    if self.class.where(user_id: user_id, tutor_id: tutor_id).exists? && !was_deleted
       errors.add(:user_id, :invalid)
     end
   end

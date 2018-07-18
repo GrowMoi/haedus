@@ -10,7 +10,12 @@
       .user-details
         .profile-container
           .user-avatar = image_tag("user_image_status.png")
-          .user-name = @client["name"]
+          .user-name
+            = @client["name"]
+            .user-username
+              small = @client["username"]
+            .user-email
+              small =  @client["email"]
         .grid-info-container
           .row-info.row-info-header
             .first-cell.first-cell-header
@@ -62,8 +67,7 @@
       .footer-text-container
         .text-more-details
           | Para establecer metas, recompensas o enviar un mensaje a este usuario, haz clic&nbsp;
-          a href="#"
-            | aquí
+          = link_to "aquí", tutor_dashboard_index_path, target: "_blank"
         .text-regards
           | Saludos,
         .text-team

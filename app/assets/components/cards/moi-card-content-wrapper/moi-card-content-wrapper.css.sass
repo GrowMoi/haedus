@@ -1,0 +1,12 @@
+@import ../../styles/mixins
+@import ../../styles/variables
+
+\:host
+  height: 100%
+  position: relative
+
+  .wrapper-container
+    height: 100%
+
+  +var(moi-select-border-color, $base-color-yellow)
+  +var(moi-choosen-border, 1px solid $base-color-yellow)

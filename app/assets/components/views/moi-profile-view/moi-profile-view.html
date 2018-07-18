@@ -1,0 +1,68 @@
+
+
+<dom-module id="moi-profile-view">
+  <link rel="stylesheet" href="moi-profile-view.css" />
+  <template>
+    <moi-badge counter="{{notificationCounter}}"></moi-badge>
+    <moi-flash-message id="flash-message"></moi-flash-message>
+
+    <form id="profile-form">
+      <legend>[[ t('views.tutor.profile.form_profile.title') ]]</legend>
+      <div class="form-group">
+        <label for="username">[[ t('views.tutor.profile.form_profile.username') ]]</label>
+        <input  class="form-control"
+                value="{{ userInfo.username::input }}"
+                type="text"
+                id="username">
+      </div>
+      <div class="form-group">
+        <label for="name">[[ t('views.tutor.profile.form_profile.name') ]]</label>
+        <input  class="form-control"
+                value="{{ userInfo.name::input }}"
+                type="text"
+                id="name">
+      </div>
+      <div class="form-group">
+        <label for="email">[[ t('views.tutor.profile.form_profile.email') ]]</label>
+        <input  class="form-control"
+                value="{{ userInfo.email::input }}"
+                type="email"
+                id="email">
+      </div>
+      <div class="form-group">
+        <button class="btn" id="btn-send-profile">
+          <span>[[ t('views.tutor.profile.form_profile.send') ]]</span>
+        </button>
+      </div>
+    </form>
+
+    <form id="password-form" class="password-form">
+        <legend>[[ t('views.tutor.profile.form_password.title') ]]</legend>
+        <div class="form-group">
+          <label for="currentPassword">[[ t('views.tutor.profile.form_password.password_current') ]]</label>
+          <input  class="form-control"
+                  value="{{ passwordData.currentPassword::input }}"
+                  type="password"
+                  id="currentPassword">
+        </div>
+        <div class="form-group">
+          <label for="password">[[ t('views.tutor.profile.form_password.password') ]]</label>
+          <input  class="form-control"
+                  value="{{ passwordData.password::input }}"
+                  type="password" >
+        </div>
+        <div class="form-group">
+          <label for="password">[[ t('views.tutor.profile.form_password.password_confirmation') ]]</label>
+          <input  class="form-control"
+                  value="{{ passwordConfirmation::input }}"
+                  type="password" >
+        </div>
+        <div class="form-group">
+          <button class="btn" id="btn-send-password">
+            <span>[[ t('views.tutor.profile.form_password.send') ]]</span>
+          </button>
+        </div>
+      </form>
+  </template>
+  <script src="moi-profile-view.js"></script>
+</dom-module>

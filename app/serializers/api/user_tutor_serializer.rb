@@ -17,7 +17,7 @@ module Api
     end
 
     def type
-      'request'
+      'tutor_request'
     end
   end
 end

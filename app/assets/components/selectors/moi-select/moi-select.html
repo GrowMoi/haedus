@@ -1,0 +1,12 @@
+<dom-module id="moi-select">
+  <link rel="stylesheet" href="moi-select.css" />
+  <template>
+    <select id="selector" name="{{ name }}">
+      <option value="" disabled selected>[[ placeholder ]]</option>
+      <template is="dom-repeat" items="{{ items }}">
+        <option value$="[[ item.id ]]">[[ item.text ]]</option>
+      </template>
+    </select>
+  </template>
+  <script src="moi-select.js"></script>
+</dom-module>

@@ -23,6 +23,7 @@ module Admin
 
     def create
       notification.user = current_user
+      notification.data_type = 'admin_generic'
       if notification.save
         redirect_to admin_notifications_path
       else

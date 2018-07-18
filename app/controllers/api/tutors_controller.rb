@@ -62,7 +62,6 @@ module Api
         scope: current_user,
         each_serializer: Api::TutorRecommendationSerializer
       )
-      #binding.pry
       recommendations = paginate_array(serialized_recommendations)
 
       resp = {
@@ -92,7 +91,7 @@ module Api
                                                    .map(&:content)
         user_contents.concat array_contents
       end
-      user_contents.uniq.delete_if{|e|current_user.already_learnt?(e) || current_user.already_read?(e)}
+      user_contents.uniq.delete_if{|e|current_user.already_learnt?(e) || current_user.already_read?(e)}.reverse
     end
 
     def paginate_array(items)

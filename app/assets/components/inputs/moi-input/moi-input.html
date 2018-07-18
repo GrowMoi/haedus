@@ -1,0 +1,10 @@
+<dom-module id="moi-input">
+  <link rel="stylesheet" href="moi-input.css" />
+  <template>
+    <div class="input-section">
+      <img class="input-icon" src$="{{iconImage}}">
+      <input type="text" id="inputtxt" on-keypress="checkForEnter" value="{{textValue::input}}">
+    </div>
+  </template>
+  <script src="moi-input.js"></script>
+</dom-module>

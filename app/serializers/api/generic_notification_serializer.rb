@@ -7,6 +7,7 @@ module Api
         :videos,
         :media,
         :type,
+        :tutor,
         :created_at
 
     def videos
@@ -24,7 +25,11 @@ module Api
     end
 
     def type
-      'generic'
+      object.data_type || 'generic'
+    end
+
+    def tutor
+      TutorSerializer.new(object.user, root: false)
     end
   end
 end

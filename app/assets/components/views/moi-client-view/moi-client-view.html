@@ -1,0 +1,56 @@
+<dom-module id="moi-client-view">
+  <link rel="stylesheet" href="moi-client-view.css" />
+  <template>
+    <moi-badge counter="{{notificationCounter}}"></moi-badge>
+    <div>
+      <moi-select items="{{ students }}" on-item-selected="onStudentSelected" placeholder$="[[ t('views.tutor.dashboard.card_quizzes.students_placeholder') ]]" on-items-loaded="onSelectItemsLoaded"></moi-select>
+    </div>
+    <template is="dom-if" if="{{ loading }}" restamp>
+      <div class="loading-data">{{ t('views.loading') }}</div>
+    </template>
+    <template is="dom-if" if="{{ !loading }}" restamp>
+      <template is="dom-if" if="{{ !userIdSelected }}" restamp>
+        <div class="container-tutor-internal container-client container-client-empty">
+          <span class="info">[[ t('views.tutor.client.select_user') ]]</span>
+        </div>
+      </template>
+      <template is="dom-if" if="{{ userIdSelected }}" restamp>
+        <div class="container-tutor-internal container-client">
+          <div class="left-container">
+            <div class="user-image-status">
+              <img src$="[[ assetPath('user_image_status.png') ]]" alt="User image status">
+            </div>
+            <div class="user-name">[[ data.client.username]]</div>
+            <div class="grid-info-container">
+              <div class="row-info row-info-header">
+                <div class="first-cell first-cell-header">N°.</div>
+                <div class="second-cell second-cell-header">[[ t('views.tutor.client.description') ]]</div>
+              </div>
+              <div class="row-info">
+                <div class="first-cell">[[ data.total_neurons_learnt.value ]]</div>
+                <div class="second-cell">[[ data.total_neurons_learnt.meta.label ]]</div>
+              </div>
+              <div class="row-info">
+                <div class="first-cell">[[ data.total_content_readings.value ]]</div>
+                <div class="second-cell">[[ data.total_content_readings.meta.label ]]</div>
+              </div>
+              <div class="row-info">
+                <div class="first-cell">[[ data.total_right_questions.value ]]</div>
+                <div class="second-cell">[[ data.total_right_questions.meta.label ]]</div>
+              </div>
+            </div>
+            <div class="link-activity-container">
+              <a class="link-user-client-activity" id="link-user-client-activity" href$="[[ activityHref ]]">[[ t('views.tutor.client.activity') ]]</a>
+            </div>
+          </div>
+          <div class="right-container">
+            <img class="tree_landscape" src$="[[ assetPath('client_tree_landscape.png') ]]" alt="Client tree landscape">
+            <img class="tree_frame" src$="[[ assetPath('client_tree_frame.png') ]]" alt="Client tree frame">
+            <img class="tree-image" src$="[[ data.client.tree_image ]]">
+          </div>
+        </div>
+      </template>
+    </template>
+  </template>
+  <script src="moi-client-view.js"></script>
+</dom-module>

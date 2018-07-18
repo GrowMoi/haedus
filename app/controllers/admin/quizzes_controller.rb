@@ -14,6 +14,7 @@ module Admin
     }
 
     def create
+      quiz.created_by = current_user
       if quiz.save
         redirect_to admin_quiz_path(quiz), notice: I18n.t("views.quizzes.created")
       else

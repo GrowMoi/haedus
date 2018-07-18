@@ -1,0 +1,57 @@
+@import ../../styles/mixins
+@import ../../styles/variables
+\:host
+  height: 100%
+  .recommendations-form
+    font-size: 1.5rem
+    height: 100%
+    form.new_tutor_recommendation
+      height: 100%
+    .disabled
+      pointer-events: none
+      opacity: 0.6
+    .recommendations-form-content
+      height: 70%
+      display: flex
+      padding-top: 3rem
+      .input-selector
+        width: 100% !important
+        border: 1px solid $base-color-dark-green
+        border-radius: 0.3rem
+        margin: 1.5rem 0
+
+      .left-container
+        padding: 1.5rem
+        flex-basis: 50%
+        #content_recommendations_chosen
+          @extend .input-selector
+          height: auto
+          .chosen-choices
+            border: none
+            padding-top: 2px
+
+      .right-container
+        padding: 1.5rem
+        flex-basis: 50%
+        #achievement_recommendations
+          margin: 1.5rem 0
+        #tutor_recommendation_tutor_achievement
+          @extend .input-selector
+        .button-dialog-new-achievement
+          background-color: $base-color-dark-green
+          color: $white
+          margin-top: 1rem
+
+      .input-info
+        opacity: 0.6
+
+    .recommendations-form-actions
+      height: 30%
+      position: relative
+      .recommendations-user-link
+        position: absolute
+        right: 1.5rem
+        bottom: 2rem
+        background-color: $base-color-dark-green
+        color: $white
+

@@ -1,39 +1,28 @@
 module TutorService
   class RecommendationsStatusUpdater
-    def initialize(client, recommendation, content_ids)
+    def initialize(client, client_tutor_recommendation, content_ids = [])
       @client = client
-      @recommendation = recommendation
-      @content_ids = content_ids
+      @client_tutor_recommendation = client_tutor_recommendation
+      @content_ids = content_ids.map(&:to_i).uniq
     end
 
     def perform
-
-      recommendation_for_client = ClientTutorRecommendation.find_by(
-        client: @client,
-        tutor_recommendation: @recommendation
-      )
-
-      unless recommendation_for_client.present?
-        recommendation_for_client = ClientTutorRecommendation.new(
-          client: @client,
-          tutor_recommendation: @recommendation,
-          status: "in_progress"
-        )
-        recommendation_for_client.save
-      end
-
       client_content_learnings = ContentLearning.where(user: @client, content_id: @content_ids)
+      client_content_learnings = client_content_learnings.map(&:content_id).uniq
       recomendation_reached = nil
-
-      if client_content_learnings.size == @content_ids.size &&
-        recommendation_for_client.status == "in_progress"
-
-        recommendation_for_client.status = "reached"
-        recommendation_for_client.save
-        recomendation_reached = recommendation_for_client
+      is_reached = validate_recomendation_reached(client_content_learnings, @content_ids)
+      if is_reached && @client_tutor_recommendation.status == "in_progress"
+        @client_tutor_recommendation.status = "reached"
+        @client_tutor_recommendation.save
+        recomendation_reached = @client_tutor_recommendation
       end
-
       recomendation_reached
+    end
+
+    private
+
+    def validate_recomendation_reached(content_learned, content_ids)
+      (content_ids & content_learned).sort == content_ids.sort
     end
 
   end

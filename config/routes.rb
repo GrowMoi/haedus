@@ -4,8 +4,10 @@ Moi::Application.routes.draw do
   namespace :api, defaults: { format: :json } do
     resource :tree, only: :show
     resource :learn, controller: :learn, only: :create
+    resources :tutor_plans, only: :index
     resources :search, only: :index
     resources :content_preferences, only: :update
+    resources :sharings, only: :create
     resource :order_preferences, controller: :order, only: :update
     resources :quizzes, only: [] do
       resources :players,
@@ -21,6 +23,7 @@ Moi::Application.routes.draw do
       end
       member do
         post :read_notifications
+        get :open
       end
     end
     resources :achievements, only: [] do
@@ -63,6 +66,13 @@ Moi::Application.routes.draw do
       end
     end
 
+    resource :payments, only: [] do
+      member do
+        post :tutor_basic_account
+        post :add_students
+      end
+    end
+
     resources :tutors, only: [] do
       collection do
         get :recommendations
@@ -79,17 +89,34 @@ Moi::Application.routes.draw do
                 only: [:show]
       resource :recommended_neurons,
                 only: [:show]
+      resource :storage, only: [:show] do
+        member do
+          put :update
+        end
+      end
+      resource :shared_contents, only: [] do
+        collection do
+          post :send
+        end
+      end
       resources :achievements, only: [:index] do
         member do
           put :active
         end
       end
+      resources :final_test, only: [:create, :show] do
+        member do
+          post :answer
+        end
+      end
+      resources :certificates, except: [:update, :edit]
     end
 
     match "users/search" => 'users#search', via: :get
     match "users/content_tasks" => 'users#content_tasks', via: :get
     match "users/content_notes" => 'users#content_notes', via: :get
     match "users/content_favorites" => 'users#content_favorites', via: :get
+    match "users/shared_contents" => 'users#shared_contents', via: :post
 
     resources :users,
               only: [] do
@@ -155,16 +182,29 @@ Moi::Application.routes.draw do
         post :approve
       end
     end
+    resources :content_importings
 
     root "dashboard#index"
   end
 
   namespace :tutor do
     resources :moi, only: :index
-    resources :client, only: [:index, :show]
-    resources :analysis, only: [:index, :show]
+    resources :client, only: :index do
+      collection do
+        get :get_client_statistics
+      end
+    end
+    resources :analysis, only: :index do
+      collection do
+        get :get_user_analysis
+      end
+    end
     resources :tree, only: :index
-    resources :user_tutors, only: :create
+    resources :user_tutors, only: [:new, :create, :destroy, :delete] do
+      member do
+        put :remove_user
+      end
+    end
     resources :recommendations, only: [:new, :create] do
       collection do
         post :new_achievement
@@ -178,9 +218,44 @@ Moi::Application.routes.draw do
         get :time_reading
       end
     end
+    resources :dashboard, only: [:index] do
+      collection do
+        get :achievements
+        post :new_achievement
+        put :update_achievement
+        get :students
+        get :get_clients
+        get :download_tutor_analytics
+        get :get_contents
+        post :send_notification
+        get :get_level_quizzes
+        get :get_questions
+        post :create_quiz
+      end
+    end
 
-    root "moi#index"
+    resources :profile, only: [:index] do
+      collection do
+        get :info
+        put :update_password
+        put :update
+      end
+    end
+
+    resources :notifications, only: [:index] do
+      member do
+        get :details
+        delete :remove
+      end
+      collection do
+        get :info
+      end
+    end
+
+    root "dashboard#index"
   end
+
+  resources :public_sharing, only: :show, path: "s"
 
   match "/delayed_job" => DelayedJobWeb,
         anchor: false,

@@ -117,6 +117,12 @@ RSpec.describe Api::LearnController,
       create :content_tutor_recommendation,
         content: custom_content2,
         tutor_recommendation: recommendation
+
+      create :client_tutor_recommendation,
+        client: current_user,
+        tutor_recommendation: recommendation,
+        status: :in_progress
+
     }
 
     before {

@@ -1,13 +1,18 @@
-h2 = t("devise.forgot_password")
+.user-session
+  .user-session-background
+    .user-form
+      .user-form-header
+        = t("devise.forgot_password")
+      .user-form-body
+        = form_for(resource, as: resource_name, url: user_password_path, html: { method: :post }) do |f|
+          = devise_error_messages!
 
-= form_for(resource, as: resource_name, url: user_password_path, html: { method: :post }) do |f|
-  = devise_error_messages!
+          .form-group.input-container
+            = f.label :email
+            = f.email_field :email, autofocus: true, class: "form-control"
 
-  .form-group
-    = f.label :email
-    = f.email_field :email, autofocus: true, class: "form-control"
+          .actions
+            = f.submit t("devise.password_reset_instructions"), data: { disable_with: t("devise.password_reset_instructions")}, class: "btn btn-primary btn-send-data"
 
-  .actions
-    = f.submit t("devise.password_reset_instructions"), data: { disable_with: t("devise.password_reset_instructions")}, class: "btn btn-primary"
-
-= render "devise/shared/links"
+        .links-container
+          = render "devise/shared/links"

@@ -6,10 +6,12 @@ es:
     signup: "Registrarse"
     forgot_password: "¿Olvidó su contraseña?"
     change_password: "Actualizar contraseña"
-    password_reset_instructions: "Enviarme instrucciones para recuperar la contraseña"
+    password_reset_instructions: "Enviarme instrucciones"
     new_password: "Nueva contraseña"
     confirm_new_password: "Confirmar nueva contraseña"
     char_min: "caracteres mínimo"
+    email_placeholder: "usuario@mail.com"
+    needs_new_user: "¿Necesitas un usuario?"
     confirmations:
       confirmed: "Su cuenta ha sido confirmada."
       confirmed_and_signed_in: "Su cuenta ha sido confirmada. Ha sido identificado correctamente."
